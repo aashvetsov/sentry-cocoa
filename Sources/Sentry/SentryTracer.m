@@ -136,14 +136,6 @@ static BOOL appStartMeasurementRead;
     return child;
 }
 
-- (void)dealloc {
-    if (self.span.timestamp != nil) {
-        [self.span removeObserver:self
-                       forKeyPath:NSStringFromSelector(@selector(timestamp))
-                          context:nil];
-    }
-}
-
 /**
  * Is called when a span finishes and checks if we can finish.
  */

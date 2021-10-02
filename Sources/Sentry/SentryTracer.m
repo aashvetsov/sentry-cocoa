@@ -155,6 +155,16 @@ static BOOL appStartMeasurementRead;
     }
 }
 
+- (void)dealloc {
+    [self.children enumerateObjectsUsingBlock:^(id<SentrySpan> child,
+                                                NSUInteger idx,
+                                                BOOL * _Nonnull stop) {
+        [child removeObserver:self
+                   forKeyPath:NSStringFromSelector(@selector(timestamp))
+                      context:nil];
+    }];
+}
+
 - (SentrySpanContext *)context
 {
     return self.rootSpan.context;
